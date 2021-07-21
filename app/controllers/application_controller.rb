@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   def enhanced_cart
     @enhanced_cart ||= Product.where(id: cart.keys).map {|product| { product:product, quantity: cart[product.id.to_s] } }
+    # abort @enhanced_cart.inspect
   end
   helper_method :enhanced_cart
 

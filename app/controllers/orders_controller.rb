@@ -3,6 +3,15 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
   end
+  
+  def enhanced_order
+    @enhanced_order ||= @order.line_items.map { |line_item| {product: Product.find_by(id: line_item.product_id), quantity: line_item.quantity
+    }}
+    
+  end
+  helper_method :enhanced_order
+  
+  
 
   def create
     charge = perform_stripe_charge

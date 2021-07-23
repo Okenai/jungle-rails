@@ -11,6 +11,14 @@
   <%= render 'layouts/top_nav' %>
 
   <main class="container">
+    <% if flash.present? %>
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-success .alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= msg %>
+      </div>
+    <% end %>
+    <% end %>
     <%= yield %>
   </main>
 

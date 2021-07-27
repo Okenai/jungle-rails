@@ -20,28 +20,29 @@ RSpec.describe Product, type: :model do
       @product.name = nil
       @product.save
       expect(@product.save).to eq false
-      expect(@product.errors.messages[:name]).to eq ["can't be blank"]
+      expect(@product.errors.full_messages).to eq ["Name can't be blank"]
      end
 
      it "fails to save when price is not a number" do
       @product.price_cents = nil
       @product.save
       expect(@product.save).to eq false
-      expect(@product.errors.messages[:price]).to eq ["is not a number", "can't be blank"]
-     end
+      expect(@product.errors.full_messages).to include("Price cents is not a number")
+      expect(@product.errors.full_messages).to eq ["Price cents is not a number", "Price is not a number", "Price can't be blank"]
+      end
 
      it "fails to save when quantity is not specified" do
       @product.quantity = nil
       @product.save
       expect(@product.save).to eq false
-      expect(@product.errors.messages[:quantity]).to eq ["can't be blank"]
-     end
+      expect(@product.errors.full_messages).to eq ["Quantity can't be blank"]
+      end
     
      it "fails to save when category is not defined" do
       @product.category = nil
-      @product.save
       expect(@product.save).to eq false
-      expect(@product.errors.messages[:category]).to eq ["can't be blank"]
+      expect(@product.errors.full_messages).to eq ["Category can't be blank"]
+      puts @product.errors.full_messages
      end
 
   end
